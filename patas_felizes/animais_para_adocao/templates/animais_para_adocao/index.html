@@ -1,0 +1,251 @@
+{% extends "animais_para_adocao/base.html" %}
+
+{% load static %}
+{% block title %} Index View {% endblock title %}
+
+{% block content %}
+
+<div class="container my-4">
+      <div class="row">
+      <div class="col-3">
+      	<h5 class="mb-3 hr">Painel de Pesquisa:</h5>
+
+      	<hr>
+
+      <form id="filtros_form" action="/filtrar" method="GET">
+      	<h6 class="mt-3">Zona do País:</h6>
+      	<select id="select_zonas_do_pais" class="form-select" name="zonas_do_pais">
+      	  <option value="-1">Qualquer</option>
+      	  {% for zona in zonas_do_pais %}
+      	  		<option {% if request.GET.zonas_do_pais == zona.id|slugify %}selected{% endif %} value="{{zona.id}}">{{zona.zona_do_pais}}</option>
+      	  {% endfor %}
+      	</select>
+
+      	<h6 class="mt-3">Tipo de Animal:</h6>
+      	<select id="select_tipo_de_animal" class="form-select" name="tipo_de_animal">
+      	  <option value="-1">Qualquer</option>
+      	  {% for tipo in tipo_de_animal %}
+      	  		<option {% if request.GET.tipo_de_animal == tipo.id|slugify %}selected{% endif %} value="{{tipo.id}}">{{tipo.tipo}}</option>
+      	  {% endfor %}
+      	</select>
+
+      	<h6 class="mt-3">Raça:</h6>
+      	<select id="select_raca" class="form-select" name="raca">
+      	  <option value="-1">Qualquer</option>
+      	  {% for r in raca %}
+      	  		<option {% if request.GET.raca == r.id|slugify %}selected{% endif %} value="{{r.id}}">{{r.raca}} ({{r.tipo_de_animal_fk}})</option>
+      	  {% endfor %}
+      	</select>
+
+      	<h6 class="mt-3">Idade:</h6>
+      	<select id="select_idade" class="form-select" name="idade">
+      	  <option value="-1">Qualquer</option>
+      	  {% for i in idade %}
+      	  		<option {% if request.GET.idade == i.id|slugify %}selected{% endif %} value="{{i.id}}">{{i.idade}}</option>
+      	  {% endfor %}
+      	</select>
+
+      	<h6 class="mt-3">Sexo:</h6>
+      	<select id="select_sexo" class="form-select" name="sexo">
+      	  <option value="-1">Qualquer</option>
+      	  <option {% if request.GET.sexo == '1' %}selected{% endif %} value="1">Fêmea</option>
+      	  <option {% if request.GET.sexo == '2' %}selected{% endif %} value="2">Macho</option>
+      	</select>
+
+      	<h6 class="mt-3">Porte / Tamanho:</h6>
+      	<select id="select_porte_tamanho" class="form-select" name="porte_tamanho">
+      	  <option value="-1">Qualquer</option>
+      	  {% for p in porte_tamanho %}
+      	  		<option {% if request.GET.porte_tamanho == p.id|slugify %}selected{% endif %} value="{{p.id}}">{{p.porte_tamanho}}</option>
+      	  {% endfor %}
+      	</select>
+
+      	<h6 class="mt-3">Cor:</h6>
+      	<select id="select_cor_do_pelo" class="form-select" name="cor_do_pelo">
+      	  <option value="-1">Qualquer</option>
+      	  {% for c in cor_do_pelo %}
+      	  		<option {% if request.GET.cor_do_pelo == c.id|slugify %}selected{% endif %} value="{{c.id}}">{{c.cor_do_pelo}}</option>
+      	  {% endfor %}
+      	</select>
+
+      	<div class="d-grid gap-2 col-6 mx-auto mt-4">
+      		<button id="button_procurar" type="submit" class="btn btn-secondary">Procurar</button>
+      	</div>
+      </form>
+
+      <script>
+      	$('#select_tipo_de_animal').on('change', function (e) {
+      	    $('#select_raca option:eq(0)').prop('selected', true)
+      	});
+
+				$('#select_raca').on('change', function (e) {
+      	    var optionSelected = $("option:selected", this).text();
+
+						if (optionSelected.includes("Gato"))
+						{
+							$('#select_tipo_de_animal option:eq(1)').prop('selected', true)
+						}
+						else if (optionSelected.includes("Cão"))
+						{
+							$('#select_tipo_de_animal option:eq(2)').prop('selected', true)
+						}
+						else if (optionSelected.includes("Exótico"))
+						{
+							$('#select_tipo_de_animal option:eq(3)').prop('selected', true)
+						}
+      	});
+
+
+
+      </script>
+
+
+      </div>
+      <div class="col-9 mt-1">
+      	{% if animais|length > 0 %}
+      	<p>Total de {{animais.paginator.count}} resultados</p>
+      	<div class="row row-cols-1 row-cols-md-3 g-4">
+      	{% for animal in animais %}
+      	<div class="col">
+	      <div class="card d-flex flex-wrap" style="width: 18rem;">
+	      	<a href="adoptar/{{animal.id}}">
+	        <img src="{% static animal.imagem.url %}" class="card-img-top"
+	        		 style="object-fit:cover; min-height: 214px; max-height: 214px;">
+	        <div class="card-body">
+	          <h5 class="card-title">{{ animal.nome }}</h5>
+	          <p class="card-text">
+	          	{% if animal.sexo == '1' %}
+	          		{% if animal.id_tipo_de_animal_fk.tipo == "Gato" %} Gata {% endif %}
+	          		{% if animal.id_tipo_de_animal_fk.tipo == "Cão" %} Cadela {% endif %}
+	          	{% else %}
+	          		{% if animal.id_tipo_de_animal_fk.tipo == "Gato" %} Gato {% endif %}
+	          		{% if animal.id_tipo_de_animal_fk.tipo == "Cão" %} Cão {% endif %}
+	          	{% endif %}
+	          	- {{ animal.id_raca_fk.raca }} |
+	          	{% if animal.id_idade_fk.idade == "Desconhecida" %}
+		          		{{ animal.id_porte_tamanho_fk.porte_tamanho }}
+	          	{% else %}
+	          			{{ animal.id_idade_fk.idade }} - {{ animal.id_porte_tamanho_fk.porte_tamanho }}
+	          	{% endif %}
+	          	<br>
+	          	{{ animal.id_zona_do_pais_fk.zona_do_pais }}, {{ animal.localidade_anunciante }}
+	          	<br>
+	          	{{ animal.datetime_anuncio }}
+	          </p>
+
+	          	{% if animal.vacinado == '1' %}
+	          		<span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">
+	          			vacinas em dia
+	          		</span>
+	          	{% endif %}
+	          	{% if animal.vacinado == '2' %}
+	          		<span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill">
+	          			algumas vacinas
+	          		</span>
+	          	{% endif %}
+	          	{% if animal.vacinado == '3' %}
+	          		<span class="badge bg-danger-subtle border border-success-subtle text-success-emphasis rounded-pill">
+	          			não vacinado
+	          		</span>
+	          	{% endif %}
+	          	{% if animal.vacinado == '4' %}
+	          		<span class="badge bg-warning-subtle border border-success-subtle text-success-emphasis rounded-pill">
+	          			desconhecido (vacinas)
+	          		</span>
+	          	{% endif %}
+
+	          	<br>
+
+	          	{% if animal.esterilizado == '1' %}
+		          <span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">
+		          		esterilizado
+		          </span>
+	          	{% endif %}
+	          	{% if animal.esterilizado == '2' %}
+		          <span class="badge bg-danger-subtle border border-success-subtle text-success-emphasis rounded-pill">
+		          		não esterilizado
+		          </span>
+	          	{% endif %}
+	          	{% if animal.esterilizado == '3' %}
+		          <span class="badge bg-warning-subtle border border-success-subtle text-success-emphasis rounded-pill">
+		          		desconhecido (esterelizado)
+		          </span>
+	          	{% endif %}
+
+	          	<br>
+
+	          	{% if animal.desparasitado == '1' %}
+		          <span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">
+		          		desparasitado
+		          </span>
+	          	{% endif %}
+	          	{% if animal.desparasitado == '2' %}
+		          <span class="badge bg-danger-subtle border border-success-subtle text-success-emphasis rounded-pill">
+		          		não desparasitado
+		          </span>
+	          	{% endif %}
+	          	{% if animal.desparasitado == '3' %}
+		          <span class="badge bg-warning-subtle border border-success-subtle text-success-emphasis rounded-pill">
+		          		desconhecido (desparasitado)
+		          </span>
+	          	{% endif %}
+	        </div>
+	      	</a>
+	      </div>
+	      </div>
+      	{% endfor %}
+      	</div>
+      	{% else %}
+      			<div class="container text-center m-5">
+      				{% autoescape off %}
+      	    		<h5>{{mensagem}}</h5>
+      				{% endautoescape %}
+      	    	<div>
+      	    		<img src="{% static "imagens/results-not-found.png" %}" alt="">
+      	    	</div>
+      			</div>
+      	{% endif %}
+     </div>
+    </div>
+	</div>
+
+
+
+    <nav class="mt-4" aria-label="Pagination">
+      <ul class="pagination justify-content-center">
+      	{% if animais.has_previous %}
+	        <li class="page-item">
+	          <a class="page-link" href="{{ request.get_full_path }}&page=1">Primeira</a>
+	        </li>
+	        <li class="page-item">
+	          <a class="page-link" href="{{ request.get_full_path }}&page={{ animais.previous_page_number }}">Anterior</a>
+	        </li>
+      	{% endif %}
+
+        <li class="page-item active">
+        	<span class="page-link">Página {{ animais.number }} de {{ animais.paginator.num_pages }}</span>
+        </li>
+
+        {% if animais.has_next %}
+
+	        {% if request.get_full_path != '/' %}
+		        <li class="page-item">
+		          <a class="page-link" href="{{ request.get_full_path }}&page={{ animais.next_page_number }}">Próxima</a>
+		        </li>
+		        <li class="page-item">
+		          <a class="page-link" href="{{ request.get_full_path }}&page={{ animais.paginator.num_pages }}">Última</a>
+		        </li>
+	        {% else %}
+		        <li class="page-item">
+		          <a class="page-link" href="?page={{ animais.next_page_number }}">Próxima</a>
+		        </li>
+		        <li class="page-item">
+		          <a class="page-link" href="?page={{ animais.paginator.num_pages }}">Última</a>
+		        </li>
+	        {% endif %}
+
+        {% endif %}
+      </ul>
+    </nav>
+
+{% endblock content %}

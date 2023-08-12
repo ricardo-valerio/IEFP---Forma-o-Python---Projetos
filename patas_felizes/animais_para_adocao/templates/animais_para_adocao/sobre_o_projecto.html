@@ -1,0 +1,26 @@
+{% extends "animais_para_adocao/base.html" %}
+
+{% load static %}
+
+{% block title %} Anunciar View {% endblock title %}
+
+{% block content %}
+<div class="container text-center">
+
+	<h2 class="mt-5">Sobre o Projecto</h2>
+	{{ sobre.descricao }}
+
+	<br>
+
+	<h2 class="mt-5">Autor</h2>
+	<a class="mx-1" href="https://github.com/ricardo-valerio" target="_blank">{{ sobre.autor }}</a>
+
+	<br>
+
+	<h2 class="mt-5">Agradecimentos</h2>
+	{{ sobre.agradecimentos }}
+
+
+</div>
+
+{% endblock content %}

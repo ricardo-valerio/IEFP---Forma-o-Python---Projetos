@@ -1,0 +1,27 @@
+{% extends "animais_para_adocao/base.html" %}
+
+{% load static %}
+
+{% block title %} Anunciar View {% endblock title %}
+
+{% block content %}
+
+	<div class="container">
+		<div class="my-5 text-center">
+			<h2>Como Ajudar?</h2>
+			<p>Gostava de ter uma participação positiva na causa animal mas não sabe por onde começar?<br>Há muitas maneiras de ajudar animais necessitados.</p>
+		</div>
+
+		{% for medida in medidas %}
+		    <hr>
+		    <br>
+		    <h3> {{medida.id}}) {{medida.medida_titulo}}</h3>
+		    <p>{{medida.medida_texto}}</p>
+		    <br>
+		{% endfor %}
+
+	</div>
+
+
+
+{% endblock content %}

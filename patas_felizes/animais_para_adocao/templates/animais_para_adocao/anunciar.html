@@ -1,0 +1,118 @@
+{% extends "animais_para_adocao/base.html" %}
+
+{% load static %}
+
+{% block title %} Anunciar View {% endblock title %}
+
+{% block content %}
+
+
+	{% if user.is_authenticated %}
+		<h2 class="text-center my-4">Anunciar Animal Para Adopção</h2>
+		<div class="container justify-content-center my-3">
+
+				{{ form.non_field_errors }}
+				<form action="{% url 'anunciar' %}" method="POST" enctype="multipart/form-data">
+				    {% csrf_token %}
+
+				    	<div class="row">
+				    	   <div class="col">
+				    	     {{ form.nome.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.nome.id_for_label }}">Nome do Animal: <span class="text-danger">*</span></label>
+				    	     {{ form.nome }}
+
+				    	     {{ form.id_tipo_de_animal_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_tipo_de_animal_fk.id_for_label }}">Tipo de Animal: <span class="text-danger">*</span></label>
+				    	     {{ form.id_tipo_de_animal_fk }}
+
+				    	     {{ form.id_raca_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_raca_fk.id_for_label }}">Raça: <span class="text-danger">*</span></label>
+				    	     {{ form.id_raca_fk }}
+
+				    	     {{ form.id_idade_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_idade_fk.id_for_label }}">Idade: <span class="text-danger">*</span></label>
+				    	     {{ form.id_idade_fk }}
+
+				    	     {{ form.id_porte_tamanho_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_porte_tamanho_fk.id_for_label }}">Porte / Tamanho: <span class="text-danger">*</span></label>
+				    	     {{ form.id_porte_tamanho_fk }}
+
+				    	     {{ form.id_cor_do_pelo_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_cor_do_pelo_fk.id_for_label }}">Cor do Pêlo: <span class="text-danger">*</span></label>
+				    	     {{ form.id_cor_do_pelo_fk }}
+
+				    	     {{ form.sexo.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.sexo.id_for_label }}">Sexo: <span class="text-danger">*</span></label>
+				    	     {{ form.sexo }}
+				    	 </div>
+				    	 <div class="col">
+
+				    	     {{ form.imagem.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.imagem.id_for_label }}">Imagem: <span class="text-danger">*</span></label>
+				    	     {{ form.imagem }}
+
+				    	     {{ form.descricao_do_animal.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.descricao_do_animal.id_for_label }}">Descrição: <span class="text-danger">*</span></label>
+				    	     {{ form.descricao_do_animal }}
+
+				    	     {{ form.esterilizado.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.esterilizado.id_for_label }}">Esterilizado: <span class="text-danger">*</span></label>
+				    	     {{ form.esterilizado }}
+
+				    	     {{ form.vacinado.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.vacinado.id_for_label }}">Vacinado: <span class="text-danger">*</span></label>
+				    	     {{ form.vacinado }}
+
+				    	     {{ form.desparasitado.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.desparasitado.id_for_label }}">Desparasitado: <span class="text-danger">*</span></label>
+				    	     {{ form.desparasitado }}
+				    	   </div>
+
+				    	   <div class="col">
+				    	     {{ form.user }}
+
+				    	     {{ form.nome_anunciante.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.nome_anunciante.id_for_label }}">Nome do Anunciante: <span class="text-danger">*</span></label>
+				    	     {{ form.nome_anunciante }}
+
+				    	     {{ form.id_zona_do_pais_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_zona_do_pais_fk.id_for_label }}">Zona do País: <span class="text-danger">*</span></label>
+				    	     {{ form.id_zona_do_pais_fk }}
+
+				    	     {{ form.localidade_anunciante.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.localidade_anunciante.id_for_label }}">Localidade: <span class="text-danger">*</span></label>
+				    	     {{ form.localidade_anunciante }}
+
+				    	     {{ form.contacto_telefonico_anunciante.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.contacto_telefonico_anunciante.id_for_label }}">Contacto Telefónico: <span class="text-danger">*</span></label>
+				    	     {{ form.contacto_telefonico_anunciante }}
+
+				    	     {{ form.email_anunciante.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.email_anunciante.id_for_label }}">Email: <span class="text-danger">*</span></label>
+				    	     {{ form.email_anunciante }}
+
+				    	     {{ form.anuncio_estado }}
+						    <div class="d-grid col-7 mx-auto mt-5">
+						    	<button type="submit" class="btn btn-primary">Submeter</button>
+						    </div>
+
+				    	   </div>
+				    	 </div>
+				</form>
+		</div>
+	{% else %}
+		<div class="container d-flex justify-content-center mt-5">
+			<h1>Para anunciar é necessário fazer login!</h1>
+		</div>
+
+		<div class="container text-center my-5">
+    		<img width="700" src="{% static "imagens/pets-login.png" %}" alt="Pets Login">
+		</div>
+
+		<div class="mx-auto mt-5">
+			<a style="width:150px;" class="d-inline-block btn btn-secondary mx-3" onclick="history.back()">Voltar atrás</a>
+			<a style="width:150px;" class="d-inline-block btn btn-primary mx-3" href="{% url 'login' %}">Login</a>
+		</div>
+	{% endif %}
+
+{% endblock content %}

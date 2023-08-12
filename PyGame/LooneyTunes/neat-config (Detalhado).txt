@@ -1,0 +1,208 @@
+[NEAT]
+# Especifica o critério utilizado para avaliar a aptidão (fitness) de um indivíduo na população. Nesse caso, é o máximo.
+fitness_criterion     = max
+
+# Define o limite mínimo de aptidão necessário para que um indivíduo seja considerado apto o suficiente
+# para a solução do problema. Nesse caso, o valor é definido como 999999, possivelmente para garantir
+# que todos os indivíduos sejam avaliados.
+fitness_threshold     = 999999
+
+# Determina o tamanho inicial da população, ou seja, o número de indivíduos na primeira geração.
+pop_size              = 50
+
+# Indica se o algoritmo deve reiniciar a população do zero caso todos os indivíduos sejam extintos
+# (não atinjam o critério de aptidão mínimo). Nesse caso, está definido como False, o que significa que
+# o algoritmo não será reiniciado.
+reset_on_extinction   = False
+
+[DefaultGenome]
+#Essa seção define as configurações padrão para os genomas individuais na população.
+
+# -- node activation options--
+# Define a função de ativação padrão para os nós (neurônios) na rede neural do genoma. Nesse caso,
+# é utilizada a função tangente hiperbólica (tanh).
+activation_default      = tanh
+
+# Define a taxa de mutação para a função de ativação dos nós. Nesse caso, não há mutação, pois o valor é 0.0.
+activation_mutate_rate  = 0.0
+
+# Define as opções de função de ativação disponíveis para os nós. Nesse caso, apenas a
+# tangente hiperbólica (tanh) está disponível.
+activation_options      = tanh
+
+
+
+# -- node aggregation options --
+
+# Define o método de agregação padrão para combinar os valores de entrada dos nós.
+# Nesse caso, é utilizada a soma (sum).
+aggregation_default     = sum
+
+# Define a taxa de mutação para o método de agregação dos nós. Nesse caso, não há mutação, pois o valor é 0.0.
+aggregation_mutate_rate = 0.0
+
+# Define as opções de método de agregação disponíveis para os nós. Nesse caso, apenas a soma (sum) está disponível.
+aggregation_options     = sum
+
+
+
+# -- node bias options --
+
+# Define a média da distribuição normal utilizada para inicializar o valor de viés (bias) dos nós.
+bias_init_mean          = 0.0
+
+# Define o desvio padrão da distribuição normal utilizada para inicializar o valor de viés (bias) dos nós.
+bias_init_stdev         = 1.0
+
+# Define o valor máximo permitido para o viés (bias) dos nós.
+bias_max_value          = 30.0
+
+# Define o valor mínimo permitido para o viés (bias) dos nós.
+bias_min_value          = -30.0
+
+# Define o fator de mutação para o viés (bias) dos nós.
+bias_mutate_power       = 0.5
+
+# Define a taxa de mutação para o viés (bias) dos nós.
+bias_mutate_rate        = 0.7
+
+# Define a taxa de substituição (em vez de mutação) para o viés (bias) dos nós.
+bias_replace_rate       = 0.1
+
+
+
+# -- genome compatibility options --
+
+# Define o peso atribuído à diferença no número de conexões entre dois genomas na
+# fórmula de compatibilidade para avaliar a semelhança entre eles.
+compatibility_disjoint_coefficient = 1.0
+
+# Define o peso atribuído à diferença nas conexões ponderadas entre dois genomas na
+# fórmula de compatibilidade para avaliar a semelhança entre eles.
+compatibility_weight_coefficient   = 0.5
+
+
+
+# -- connection add/remove rates --
+#Define a probabilidade de adicionar uma nova conexão em um genoma.
+conn_add_prob           = 0.5
+
+#Define a probabilidade de excluir uma conexão existente em um genoma.
+conn_delete_prob        = 0.5
+
+
+
+# -- connection enable options --
+# Define o estado padrão (habilitado ou desabilitado) para as conexões do genoma.
+enabled_default         = True
+
+#Define a taxa de mutação para habilitar ou desabilitar as conexões do genoma.
+enabled_mutate_rate     = 0.01
+
+#Indica se a rede neural do genoma é do tipo feed-forward (com apenas conexões direcionadas para frente).
+feed_forward            = True
+
+#Define o padrão inicial para as conexões do genoma. Nesse caso, todas as conexões possíveis estão presentes.
+initial_connection      = full
+
+
+
+# -- node add/remove rates --
+
+#Define a probabilidade de adicionar um novo nó (neurônio) em um genoma.
+node_add_prob           = 0.2
+
+#Define a probabilidade de excluir um nó (neurônio) existente em um genoma.
+node_delete_prob        = 0.2
+
+
+
+# -- network parameters --
+
+# Define o número de nós (neurônios) ocultos na rede neural do genoma.
+num_hidden              = 0
+
+#Define o número de nós (neurônios) de entrada na rede neural do genoma.
+num_inputs              = 7
+
+#Define o número de nós (neurônios) de saída na rede neural do genoma.
+num_outputs             = 3
+
+
+
+# -- node response options --
+
+#Define a média da distribuição normal utilizada para inicializar o valor de resposta dos nós.
+response_init_mean      = 1.0
+
+#Define o desvio padrão da distribuição normal utilizada para inicializar o valor de resposta dos nós.
+response_init_stdev     = 0.0
+
+#Define o valor máximo permitido para a resposta dos nós.
+response_max_value      = 30.0
+
+#Define o valor mínimo permitido para a resposta dos nós.
+response_min_value      = -30.0
+
+#Define o fator de mutação para a resposta dos nós.
+response_mutate_power   = 0.0
+
+#Define a taxa de mutação para a resposta dos nós.
+response_mutate_rate    = 0.0
+
+#Define a taxa de substituição (em vez de mutação) para a resposta dos nós.
+response_replace_rate   = 0.0
+
+
+
+# -- connection weight options --
+
+#Define a média da distribuição normal utilizada para inicializar o valor dos pesos das conexões.
+weight_init_mean        = 0.0
+
+#Define o desvio padrão da distribuição normal utilizada para inicializar o valor dos pesos das conexões.
+weight_init_stdev       = 1.0
+
+#Define o valor máximo permitido para os pesos das conexões.
+weight_max_value        = 30
+
+#Define o valor mínimo permitido para os pesos das conexões.
+weight_min_value        = -30
+
+#Define o fator de mutação para os pesos das conexões.
+weight_mutate_power     = 0.5
+
+#Define a taxa de mutação para os pesos das conexões.
+weight_mutate_rate      = 0.8
+
+#Define a taxa de substituição (em vez de mutação) para os pesos das conexões.
+weight_replace_rate     = 0.1
+
+
+[DefaultSpeciesSet]
+
+# Define o limite de compatibilidade necessário para que dois genomas sejam
+" colocados na mesma espécie durante a reprodução.
+compatibility_threshold = 3.0
+
+[DefaultStagnation]
+
+# Especifica a função utilizada para calcular a aptidão (fitness) de uma espécie
+# com base na aptidão de seus membros. Nesse caso, é o máximo.
+species_fitness_func = max
+
+# Define o número máximo de gerações consecutivas permitidas sem melhoria na aptidão
+# da melhor espécie antes que ocorra estagnação.
+max_stagnation       = 20
+
+#Define o número de espécies mais aptas que serão preservadas na
+species_elitism      = 2
+
+[DefaultReproduction]
+# O parâmetro "elitism" define o número de indivíduos mais aptos que serão preservados
+# diretamente para a próxima geração, sem sofrer modificações ou cruzamento.
+elitism            = 2
+
+# O parâmetro "survival_threshold" define a fração de indivíduos menos aptos que serão
+# eliminados após a reprodução.
+survival_threshold = 0.2

@@ -1,0 +1,64 @@
+{% extends "animais_para_adocao/base.html" %}
+
+{% load static %}
+
+{% block title %} Meus Anúncios {% endblock title %}
+
+{% block content %}
+
+
+<div class="container">
+
+	<h2 class="my-5 text-center">Meus Anúncios</h2>
+
+	{% if meus_anuncios %}
+
+		<table class="table table-striped text-center">
+		  <thead class="table-dark">
+		    <tr>
+		      <th scope="col">Nome do Animal</th>
+		      <th scope="col">Tipo de Animal</th>
+		      <th scope="col">Data de Publicação</th>
+		      <th scope="col">Acções</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    {% for anuncio in meus_anuncios %}
+			    <tr>
+			      <th scope="row">{{anuncio.nome}}</th>
+			      <td>{{anuncio.id_tipo_de_animal_fk}}</td>
+			      <td>{{anuncio.datetime_anuncio}}</td>
+			      <td class="text-center">
+			      	<a href="{% url 'adoptar' anuncio_id=anuncio.id %}" class="btn btn-info">Ver</a>
+			      	&ThickSpace;
+			      	<a href="{% url 'editar_anuncio' anuncio_id=anuncio.id %}" class="btn btn-warning">Editar</a>
+			      	&ThickSpace;
+			      	<a href="{% url 'eliminar_anuncio' anuncio_id=anuncio.id %}" class="btn btn-danger">Eliminar</a>
+			      </td>
+			    </tr>
+			{% endfor %}
+		  </tbody>
+		</table>
+
+	{% else %}
+		<div class="container text-center m-5">
+    		<h5>Ainda não tem anúncios...pode criar um!...Clique no meu "Anunciar"!</h5>
+	    	<div>
+	    		<img src="{% static "imagens/results-not-found.png" %}" alt="">
+	    	</div>
+		</div>
+	{% endif %}
+
+</div>
+
+
+<script>
+
+	$(document).ready(function () {
+		$(".btn-danger").click(function (event) {
+			return confirm("Tem a certeza que pretende eliminar este registo?")
+		});
+	});
+</script>
+
+{% endblock content %}

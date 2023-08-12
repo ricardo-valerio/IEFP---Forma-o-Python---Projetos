@@ -1,0 +1,230 @@
+{% extends "animais_para_adocao/base.html" %}
+
+{% load static %}
+
+{% block title %} Index View {% endblock title %}
+
+{% block content %}
+
+<section class="box bg-white py-3 px-1">
+    <div class="container">
+        <div class="row">
+            <aside class="col-md-6">
+                <div>
+                    <article class="gallery-wrap">
+                        <div class="img-small-wrap pt-4">
+                            <div>
+                                <a href="{% static animal.imagem.url %}"
+                                   data-fancybox="imagem"
+                                   data-caption="Caption #1">
+                                    <img src="{% static animal.imagem.url %}" width="100%">
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </aside>
+
+            <main class="col-md-6">
+                <article class="product-info-aside">
+                    <h2 class="title mt-3 text-center">{{animal.nome}}</h2>
+
+
+                    <p class="my-4 mx-3">
+                        {{animal.descricao_do_animal}}
+                    </p>
+                    <p>
+    	          	{% if animal.vacinado == '1' %}
+    	          		<span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">
+    	          			vacinas em dia
+    	          		</span>
+    	          	{% endif %}
+    	          	{% if animal.vacinado == '2' %}
+    	          		<span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill">
+    	          			algumas vacinas
+    	          		</span>
+    	          	{% endif %}
+    	          	{% if animal.vacinado == '3' %}
+    	          		<span class="badge bg-danger-subtle border border-success-subtle text-success-emphasis rounded-pill">
+    	          			não vacinado
+    	          		</span>
+    	          	{% endif %}
+    	          	{% if animal.vacinado == '4' %}
+    	          		<span class="badge bg-warning-subtle border border-success-subtle text-success-emphasis rounded-pill">
+    	          			desconhecido
+    	          		</span>
+    	          	{% endif %}
+
+
+    	          	{% if animal.esterilizado == '1' %}
+    		          <span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">
+    		          		esterilizado
+    		          </span>
+    	          	{% endif %}
+    	          	{% if animal.esterilizado == '2' %}
+    		          <span class="badge bg-danger-subtle border border-success-subtle text-success-emphasis rounded-pill">
+    		          		não esterilizado
+    		          </span>
+    	          	{% endif %}
+    	          	{% if animal.esterilizado == '3' %}
+    		          <span class="badge bg-warning-subtle border border-success-subtle text-success-emphasis rounded-pill">
+    		          		desconhecido
+    		          </span>
+    	          	{% endif %}
+
+
+    	          	{% if animal.desparasitado == '1' %}
+    		          <span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">
+    		          		desparasitado
+    		          </span>
+    	          	{% endif %}
+    	          	{% if animal.desparasitado == '2' %}
+    		          <span class="badge bg-danger-subtle border border-success-subtle text-success-emphasis rounded-pill">
+    		          		não desparasitado
+    		          </span>
+    	          	{% endif %}
+    	          	{% if animal.desparasitado == '3' %}
+    		          <span class="badge bg-warning-subtle border border-success-subtle text-success-emphasis rounded-pill">
+    		          		desconhecido
+    		          </span>
+    	          	{% endif %}
+                    </p>
+
+
+                    <dl class="row my-4">
+
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="fa fa-atlas text-muted"></i>&nbsp;&nbsp; Tipo de Animal:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+
+                        	{% if animal.id_tipo_de_animal_fk.tipo == 'Gato' %}
+                        		    {% if animal.sexo == '1' %} Gata {% endif %}
+                        			{% if animal.sexo == '2' %} Gato {% endif %}
+                    		{% endif %}
+
+                        	{% if animal.id_tipo_de_animal_fk.tipo == 'Cão' %}
+                        		    {% if animal.sexo == '1' %} Cadela {% endif %}
+                        			{% if animal.sexo == '2' %} Cão {% endif %}
+                    		{% endif %}
+
+                        	{% if animal.id_tipo_de_animal_fk.tipo == 'Outro/Exótico' %}
+                        		Outro/Exótico
+                    		{% endif %}
+
+                        </dd>
+
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="fa fa-atlas text-muted"></i>&nbsp;&nbsp; Idade:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+                            {{ animal.id_idade_fk.idade }}
+                        </dd>
+
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="fa fa-swatchbook text-muted"></i>&nbsp;&nbsp; Tamanho/Porte:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+                            {{ animal.id_porte_tamanho_fk.porte_tamanho }}
+                        </dd>
+
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="fa fa-swatchbook text-muted"></i>&nbsp;&nbsp; Sexo:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+                        	{% if animal.sexo == '1' %} Fêmea{% endif %}
+                        	{% if animal.sexo == '2' %} Macho{% endif %}
+                        </dd>
+
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="fa fa-file-alt text-muted"></i>&nbsp;&nbsp; Cor:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+                            {{ animal.id_cor_do_pelo_fk.cor_do_pelo }}
+                        </dd>
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="text-muted"></i>&nbsp;&nbsp; Zona do País:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+                            {{animal.id_zona_do_pais_fk}}
+                        </dd>
+
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="fa fa-atlas text-muted"></i>&nbsp;&nbsp; Localidade:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+                            {{animal.localidade_anunciante}}
+                        </dd>
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="fa fa-atlas text-muted"></i>&nbsp;&nbsp; Nome do Anunciante:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+                            {{animal.nome_anunciante}}
+                        </dd>
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="fa fa-atlas text-muted"></i>&nbsp;&nbsp; Contato telefónico:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+                            {{animal.contacto_telefonico_anunciante}}
+                        </dd>
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="fa fa-atlas text-muted"></i>&nbsp;&nbsp; Email:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+                            {{animal.email_anunciante}}
+                        </dd>
+
+                        <dt class="col-sm-5 mb-2">
+                            <span class="tag">
+                            <i class="fa fa-atlas text-muted"></i>&nbsp;&nbsp; Data do Anúncio:
+                            </span>
+                        </dt>
+                        <dd class="col-sm-7">
+                            {{animal.datetime_anuncio}}
+                        </dd>
+
+                    </dl>
+
+
+                </article>
+            </main>
+        </div>
+
+    </div>
+</section>
+
+{% endblock content %}
+
+
+
+

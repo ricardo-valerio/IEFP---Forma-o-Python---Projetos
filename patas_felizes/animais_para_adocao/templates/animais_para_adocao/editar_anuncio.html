@@ -1,0 +1,108 @@
+{% extends "animais_para_adocao/base.html" %}
+
+{% load static %}
+
+{% block title %} Editar View {% endblock title %}
+
+{% block content %}
+
+		<h2 class="text-center mt-5">Editar Informação do Animal Para Adopção</h2>
+		<div class="container justify-content-center my-5">
+
+				{{ form.non_field_errors }}
+				<form action="{% url 'editar_anuncio' anuncio_id=anuncio_id %}" method="POST" enctype="multipart/form-data">
+				    {% csrf_token %}
+
+				    	<div class="row">
+				    	   <div class="col">
+				    	     {{ form.nome.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.nome.id_for_label }}">Nome do Animal:</label>
+				    	     {{ form.nome }}
+
+				    	     {{ form.id_tipo_de_animal_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_tipo_de_animal_fk.id_for_label }}">Tipo de Animal:</label>
+				    	     {{ form.id_tipo_de_animal_fk }}
+
+				    	     {{ form.id_raca_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_raca_fk.id_for_label }}">Raça:</label>
+				    	     {{ form.id_raca_fk }}
+
+				    	     {{ form.id_idade_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_idade_fk.id_for_label }}">Idade:</label>
+				    	     {{ form.id_idade_fk }}
+
+				    	     {{ form.id_porte_tamanho_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_porte_tamanho_fk.id_for_label }}">Porte / Tamanho:</label>
+				    	     {{ form.id_porte_tamanho_fk }}
+
+				    	     {{ form.id_cor_do_pelo_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_cor_do_pelo_fk.id_for_label }}">Cor do Pêlo:</label>
+				    	     {{ form.id_cor_do_pelo_fk }}
+
+				    	     {{ form.sexo.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.sexo.id_for_label }}">Sexo:</label>
+				    	     {{ form.sexo }}
+				    	 </div>
+				    	 <div class="col">
+
+				    	     {{ form.imagem.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.imagem.id_for_label }}">Imagem:</label>
+				    	     {{ form.imagem }}
+
+				    	     {{ form.descricao_do_animal.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.descricao_do_animal.id_for_label }}">Descrição:</label>
+				    	     {{ form.descricao_do_animal }}
+
+				    	     {{ form.esterilizado.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.esterilizado.id_for_label }}">Esterilizado:</label>
+				    	     {{ form.esterilizado }}
+
+				    	     {{ form.vacinado.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.vacinado.id_for_label }}">Vacinado:</label>
+				    	     {{ form.vacinado }}
+
+				    	     {{ form.desparasitado.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.desparasitado.id_for_label }}">Desparasitado:</label>
+				    	     {{ form.desparasitado }}
+				    	   </div>
+
+				    	   <div class="col">
+				    	     {{ form.user }}
+
+				    	     {{ form.nome_anunciante.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.nome_anunciante.id_for_label }}">Nome do Anunciante:</label>
+				    	     {{ form.nome_anunciante }}
+
+				    	     {{ form.id_zona_do_pais_fk.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.id_zona_do_pais_fk.id_for_label }}">Zona do País:</label>
+				    	     {{ form.id_zona_do_pais_fk }}
+
+				    	     {{ form.localidade_anunciante.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.localidade_anunciante.id_for_label }}">Localidade:</label>
+				    	     {{ form.localidade_anunciante }}
+
+				    	     {{ form.contacto_telefonico_anunciante.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.contacto_telefonico_anunciante.id_for_label }}">Contacto Telefónico:</label>
+				    	     {{ form.contacto_telefonico_anunciante }}
+
+				    	     {{ form.email_anunciante.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.email_anunciante.id_for_label }}">Email:</label>
+				    	     {{ form.email_anunciante }}
+
+
+				    	     {{ form.anuncio_estado.errors }}
+				    	     <label style="font-weight: bold;" for="{{ form.anuncio_estado.id_for_label }}">Estado do Anúncio:</label>
+				    	     {{ form.anuncio_estado }}
+
+						    <div class="d-grid col-7 mx-auto mt-5">
+						    	<button type="submit" class="btn btn-primary">Guardar</button>
+						    </div>
+
+				    	   </div>
+				    	 </div>
+				</form>
+			</div>
+
+		</div>
+
+{% endblock content %}

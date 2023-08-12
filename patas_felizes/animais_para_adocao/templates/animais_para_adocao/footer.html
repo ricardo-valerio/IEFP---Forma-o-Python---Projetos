@@ -1,0 +1,15 @@
+{% load static %}
+<div class="container mt-auto">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <p class="col-md-4 mb-0 text-body-secondary">2023 Patas Felizes</p>
+
+
+    <ul class="nav col-md-4 justify-content-end">
+      <li>made with <img src="{% static "imagens/paw.png" %}" width="30" class="mx-1" alt="Patas Felizes"> by <a class="ml-1" href="https://github.com/ricardo-valerio" target="_blank">Ricardo Valério</a></li>
+      <span>&ThickSpace; | &ThickSpace;</span>
+      <li class="nav-item">
+          <a href="{% url 'sobre_o_projecto' %}">Sobre o Projecto</a>
+      </li>
+    </ul>
+  </footer>
+</div>
